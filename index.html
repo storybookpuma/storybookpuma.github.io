@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portafolio de ciberseguridad - SOC Analyst & Red Team Enthusiast">
+    <meta name="keywords" content="ciberseguridad, cybersecurity, SOC analyst, red team, ethical hacking, pentesting">
+    
+    <title>Francisco - Cybersecurity Portfolio</title>
+    
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon_512x512.png">
+        <link rel="alternate" hreflang="es" href="./">
+        <link rel="alternate" hreflang="en" href="en/">
+        <link rel="alternate" hreflang="x-default" href="./">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out">
+        <div id="nav-container" class="hidden md:flex justify-center bg-[var(--background-color)]/70 px-8 py-6">
+            <div class="flex space-x-8 items-center">
+                <a href="#home" class="nav-link-pill">Inicio</a>
+                <a href="#about" class="nav-link-pill">Sobre mí</a>
+                <div class="w-8 h-8 bg-gradient-to-br from-[var(--primary-color)] to-[var(--primary-color-light)] rounded-full flex items-center justify-center text-black font-bold text-sm">
+                    &lt;/&gt;
+                </div>
+                <a href="#projects" class="nav-link-pill">Proyectos</a>
+                <a href="#skills" class="nav-link-pill">Habilidades</a>
+                <a href="#contact" class="nav-link-pill">Contacto</a>
+                <a href="en/" class="nav-link-pill" hreflang="en" aria-label="Switch to English" target="_blank">EN</a>
+            </div>
+        </div>
+        
+        <div id="mobile-nav-container" class="md:hidden flex justify-center bg-[var(--background-color)]/70 px-4 py-4">
+            <button id="mobile-menu-btn" class="text-[var(--primary-color)] p-2 pointer-events-auto" aria-label="Abrir menú">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            
+            <div id="mobile-menu" class="absolute z-40 top-16 left-1/2 -translate-x-1/2 bg-[var(--background-color)]/95 backdrop-blur-lg rounded-2xl p-6 min-w-[220px] hidden shadow-xl border border-[color:rgb(57_255_20_/_0.2)]">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="nav-link-pill text-center">Inicio</a>
+                    <a href="#about" class="nav-link-pill text-center">Sobre mí</a>
+                    <a href="#projects" class="nav-link-pill text-center">Proyectos</a>
+                    <a href="#skills" class="nav-link-pill text-center">Habilidades</a>
+                    <a href="#contact" class="nav-link-pill text-center">Contacto</a>
+                    <a href="en/" class="nav-link-pill text-center" hreflang="en" aria-label="Switch to English" target="_blank">EN</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative flex min-h-screen flex-col items-center justify-center bg-[var(--background-color)] p-4 overflow-hidden">
+        <div class="particle-bg" id="particle-container" aria-hidden="true"></div>
+        
+        <div class="z-10 flex flex-col items-center text-center max-w-4xl">
+            <h1 class="text-4xl font-bold text-[var(--text-primary)] md:text-6xl lg:text-7xl mb-4">
+                <span id="typewriter-text"></span>
+                <span class="cursor-blink"></span>
+            </h1>
+            
+            <p class="text-lg text-[var(--text-secondary)] md:text-xl lg:text-2xl mb-8 max-w-2xl">
+                SOC Analyst &amp; Red Team Enthusiast
+            </p>
+            
+            <p class="text-base text-[var(--text-secondary)] mb-8 max-w-3xl leading-relaxed">
+                Apasionado por la ciberseguridad ofensiva y defensiva, con experiencia práctica en pentesting, 
+                escalada de privilegios, análisis de logs y simulación de ataques en entornos controlados.
+                Comprometido con proteger sistemas, entender vectores de ataque reales y compartir el conocimiento técnico con claridad.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#projects" class="button_primary">Ver Proyectos</a>
+                <a href="#contact" class="button_secondary">Contactar</a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <svg class="w-6 h-6 text-[var(--primary-color)] scroll-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="section-title">Sobre mí</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+                        Soy un estudiante de Ingeniería en Tecnologías de la Información, enfocado en ciberseguridad, 
+                        con más de un año de experiencia práctica en laboratorios, máquinas vulnerables y 
+                        simulaciones de ataques reales.
+                    </p>
+                    <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+                        He trabajado proyectos en áreas como análisis de amenazas, respuesta a incidentes, red teaming y pruebas de penetración, 
+                        combinando herramientas ofensivas y defensivas. Mi formación se ha complementado con certificaciones en proceso como eJPTv2 y Security+, 
+                        y aprendizaje autodidacta constante.
+
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">SIEM</span>
+                        <span class="skill-tag">Threat Hunting</span>
+                        <span class="skill-tag">Incident Response</span>
+                        <span class="skill-tag">Penetration Testing</span>
+                        <span class="skill-tag">Digital Forensics</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <div class="w-64 h-64 mx-auto bg-gradient-to-br from-[var(--primary-color)]/20 to-transparent rounded-full flex items-center justify-center border border-[var(--primary-color)]/30">
+                        <svg class="w-32 h-32 text-[var(--primary-color)]" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 px-4 bg-[var(--background-color)]/50">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="section-title">Proyectos</h2>
+            <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card" id="lab-final-card">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-semibold text-[var(--text-primary)]">Laboratorio de Pentesting Multi‑VM (prep eJPTv2)</h3>
+                        <span class="text-sm text-[var(--text-muted)]">Red Team</span>
+                    </div>
+                    <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                        Ruta completa de pentesting en red: recon, SMB/Web, explotación (LFI, SQLi, File Upload), Windows (MS17‑010), Linux privesc, y pivoting con Metasploit hasta llegar a la última red.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag">eJPTv2</span>
+                        <span class="tech-tag">Pivoting</span>
+                        <span class="tech-tag">Metasploit</span>
+                        <span class="tech-tag">SMB</span>
+                        <span class="tech-tag">SQLi</span>
+                        <span class="tech-tag">File Upload</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="https://github.com/storybookpuma/entorno-eJPTv2" class="text-[var(--primary-color)] hover:underline text-sm" target="_blank">🔗 Repositorio</a>
+                    </div>
+                </div>
+
+                <div class="project-card" id="api-abuse-card">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-semibold text-[var(--text-primary)]">Abuso de APIs (crAPI)</h3>
+                        <span class="text-sm text-[var(--text-muted)]">Web Security</span>
+                    </div>
+                    <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                        Pequeño write‑up práctico: JWT, enum de endpoints/métodos, versión de endpoints, lógica de negocio, NoSQLi y BOLA. Con capturas y consejos para replicarlo.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag">Postman</span>
+                        <span class="tech-tag">ffuf</span>
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">NoSQLi</span>
+                        <span class="tech-tag">BOLA</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="#" class="text-[var(--primary-color)] hover:underline text-sm" target="_blank">🔗 Repositorio</a>
+                    </div>
+                </div>
+
+                <!-- Proyecto: Snort IDS/IPS -->
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-semibold text-[var(--text-primary)]">Snort IDS/IPS</h3>
+                        <span class="text-sm text-[var(--text-muted)]">Blue Team</span>
+                    </div>
+                    <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                        Monitoreo con Snort 3: modos de operación, ejecución con PCAP/interfaz, salidas (-A cmg/u2/csv) y reglas básicas de detección.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag">Snort</span>
+                        <span class="tech-tag">IDS/IPS</span>
+                        <span class="tech-tag">PCAP</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="https://github.com/storybookpuma/snort-ids-ips" target="_blank" class="text-[var(--primary-color)] hover:underline text-sm">🔗 Repositorio</a>
+                    </div>
+                </div>
+
+                <!-- Proyecto: Suricata IDS (pre‑reglas) -->
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-semibold text-[var(--text-primary)]">Suricata IDS (pre‑reglas)</h3>
+                        <span class="text-sm text-[var(--text-muted)]">Blue Team</span>
+                    </div>
+                    <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                        Fundamentos, inputs (offline/online, NFQ, AF_PACKET), logs (eve.json/fast/http/stats) y operación básica antes del desarrollo de reglas.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag">Suricata</span>
+                        <span class="tech-tag">IDS</span>
+                        <span class="tech-tag">EVE</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="https://github.com/storybookpuma/suricata-ids" target="_blank" class="text-[var(--primary-color)] hover:underline text-sm">🔗 Repositorio</a>
+                    </div>
+                </div>
+
+                <!-- Proyecto: Windows Attacks con Splunk -->
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-semibold text-[var(--text-primary)]">Windows Attacks con Splunk</h3>
+                        <span class="text-sm text-[var(--text-muted)]">Blue Team</span>
+                    </div>
+                    <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                        Tres detecciones clave: Kerberoasting, Pass‑the‑Hash y Pass‑the‑Ticket con SPL, correlación de eventos y capturas.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag">Splunk</span>
+                        <span class="tech-tag">Windows</span>
+                        <span class="tech-tag">MITRE ATT&CK</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="https://github.com/storybookpuma/splunk-windows-attacks" target="_blank" class="text-[var(--primary-color)] hover:underline text-sm">🔗 Repositorio</a>
+                    </div>
+                </div>
+
+                <!-- Proyecto: YARA Detections -->
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-semibold text-[var(--text-primary)]">YARA Detections</h3>
+                        <span class="text-sm text-[var(--text-muted)]">Threat Hunting</span>
+                    </div>
+                    <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                        Reglas YARA y hunting en Windows/Linux/ETW: estructura, yarGen, procesos y memoria, con ejemplos prácticos.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag">YARA</span>
+                        <span class="tech-tag">ETW</span>
+                        <span class="tech-tag">Volatility</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="https://github.com/storybookpuma/yara-detections" target="_blank" class="text-[var(--primary-color)] hover:underline text-sm">🔗 Repositorio</a>
+                    </div>
+                </div>
+
+                <!-- Proyecto: Chat Tkinter (Multiusuario TLS) -->
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-semibold text-[var(--text-primary)]">Chat Tkinter (Multiusuario con TLS)</h3>
+                        <span class="text-sm text-[var(--text-muted)]">Python</span>
+                    </div>
+                    <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                        Chat multiusuario con GUI en Tkinter y cifrado de transporte TLS. Servidor con sockets y threading; cliente con recepción asíncrona, lista de usuarios y comandos.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Tkinter</span>
+                        <span class="tech-tag">Sockets</span>
+                        <span class="tech-tag">SSL/TLS</span>
+                        <span class="tech-tag">Threading</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="https://github.com/storybookpuma/chat-Tkinter" target="_blank" class="text-[var(--primary-color)] hover:underline text-sm">🔗 Repositorio</a>
+                    </div>
+                </div>
+
+                <!-- Proyecto: ARP Network Scanner -->
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-semibold text-[var(--text-primary)]">ARP Network Scanner (Python)</h3>
+                        <span class="text-sm text-[var(--text-muted)]">Python</span>
+                    </div>
+                    <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                        Descubrimiento de hosts en la LAN mediante paquetes ARP. Muestra IP, MAC y fabricante.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Scapy</span>
+                        <span class="tech-tag">ARP</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="https://github.com/storybookpuma/arp-scanner" target="_blank" class="text-[var(--primary-color)] hover:underline text-sm">🔗 Repositorio</a>
+                    </div>
+                </div>
+
+                <!-- Proyecto: Backdoor & C2 -->
+                <div class="project-card">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-semibold text-[var(--text-primary)]">Backdoor & C2</h3>
+                        <span class="text-sm text-[var(--text-muted)]">Python</span>
+                    </div>
+                    <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                        Backdoor y servidor C2 simples para fines educativos: ejecución de comandos, transferencia de archivos y persistencia básica.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Sockets</span>
+                        <span class="tech-tag">C2</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="https://github.com/storybookpuma/backdoor-c2" target="_blank" class="text-[var(--primary-color)] hover:underline text-sm">🔗 Repositorio</a>
+                    </div>
+                </div>
+
+                <div class="additional-projects hidden">
+                    
+
+                    <!-- Proyecto: Port Scanner (TCP) -->
+                    <div class="project-card">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-semibold text-[var(--text-primary)]">Port Scanner (TCP)</h3>
+                            <span class="text-sm text-[var(--text-muted)]">Python</span>
+                        </div>
+                        <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                            Escáner de puertos concurrente estilo nmap (sockets), con tiempos configurables y salida amigable.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Sockets</span>
+                            <span class="tech-tag">Threads</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/storybookpuma/port-scanner" target="_blank" class="text-[var(--primary-color)] hover:underline text-sm">🔗 Repositorio</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-semibold text-[var(--text-primary)]">Sistema Reconocimiento de Imágenes</h3>
+                            <span class="text-sm text-[var(--text-muted)]">2024</span>
+                        </div>
+                        <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                            Desarrollo de algoritmos para identificar y clasificar imágenes usando OpenCV. 
+                            Optimización con K-means y KNN para procesamiento eficiente.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">OpenCV</span>
+                            <span class="tech-tag">K-means</span>
+                            <span class="tech-tag">KNN</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/storybookpuma/etiquetador" target="_blank" class="text-[var(--primary-color)] hover:underline text-sm">🔗 Repositorio</a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-semibold text-[var(--text-primary)]">Pokémon Vue (Vue 3 + Vite)</h3>
+                            <span class="text-sm text-[var(--text-muted)]">Frontend</span>
+                        </div>
+                        <p class="text-[var(--text-secondary)] mb-4 leading-relaxed">
+                            Proyecto web estilo retro inspirado en Pokémon: mapa navegable, encuentros salvajes, Pokédex y menú in‑game. 
+                            Funciona con API simulada (mock) o backend real.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag">Vue 3</span>
+                            <span class="tech-tag">Vite</span>
+                            <span class="tech-tag">Mock API</span>
+                            <span class="tech-tag">Sprites</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://github.com/storybookpuma/pokemon-vue" target="_blank" class="text-[var(--primary-color)] hover:underline text-sm">🔗 Repositorio</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-8">
+                <button id="toggle-projects" class="button_secondary">
+                    <span id="toggle-text">Ver más proyectos</span>
+                    <svg id="toggle-icon" class="w-4 h-4 ml-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <h2 class="section-title">Habilidades</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="skill-category">
+                    <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
+                        🛡️ Blue Team & SOC
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="skill-item">SIEM (Splunk, ELK Stack, Kibana)</li>
+                        <li class="skill-item">Kibana & Dashboards</li>
+                        <li class="skill-item">MITRE ATT&CK Framework</li>
+                        <li class="skill-item">Incident Response</li>
+                        <li class="skill-item">Log Analysis</li>
+                        <li class="skill-item">Sysmon</li>
+                        <li class="skill-item">Digital Forensics</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
+                        ⚔️ Red Team & Pentesting
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="skill-item">Buffer Overflow</li>
+                        <li class="skill-item">Web Exploitation</li>
+                        <li class="skill-item">Burp Suite</li>
+                        <li class="skill-item">SQLMap</li>
+                        <li class="skill-item">OWASP Top 10</li>
+                        <li class="skill-item">Privilege Escalation</li>
+                        <li class="skill-item">Vulnerability Assessment</li>
+                        <li class="skill-item">Network Reconnaissance</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
+                        💻 Programming & Tools
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="skill-item">Python</li>
+                        <li class="skill-item">Java</li>
+                        <li class="skill-item">JavaScript</li>
+                        <li class="skill-item">SQL & PL/SQL</li>
+                        <li class="skill-item">Bash Scripting</li>
+                        <li class="skill-item">PowerShell</li>
+                        <li class="skill-item">Oracle Database</li>
+                        <li class="skill-item">Git & Version Control</li>
+                        <li class="skill-item">Linux & Windows</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
+                        🌐 Network & Detection
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="skill-item">Suricata IDS/IPS</li>
+                        <li class="skill-item">Wireshark</li>
+                        <li class="skill-item">Splunk SPL</li>
+                        <li class="skill-item">Sigma Rules</li>
+                        <li class="skill-item">Network Protocols</li>
+                        <li class="skill-item">Traffic Analysis</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
+                        🔍 Threat Intelligence
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="skill-item">Threat Hunting</li>
+                        <li class="skill-item">Malware Analysis</li>
+                        <li class="skill-item">IOC Analysis</li>
+                        <li class="skill-item">TTP Mapping</li>
+                        <li class="skill-item">Risk Assessment</li>
+                        <li class="skill-item">Security Research</li>
+                        <li class="skill-item">Report Writing</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
+                        🏆 Estudios y Certificaciones
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="skill-item">eJPTv2 (En proceso)</li>
+                        <li class="skill-item">CompTIA Security+ (En proceso)</li>
+                        <li class="skill-item">Ingeniería en TI</li>
+                        <li class="skill-item">HTB SOC Path</li>
+                        <li class="skill-item">Hack4u Certificaciones</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-4 bg-[var(--background-color)]/50">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="section-title">Contacto</h2>
+            <p class="text-[var(--text-secondary)] mb-8">
+                ¿Interesado en colaborar o tienes alguna pregunta? ¡Hablemos!
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="mailto:rampefrank32@gmail.com" class="button_primary">Enviar Email</a>
+                <a href="https://www.linkedin.com/in/francisco-jes%C3%BAs-ram%C3%B3n-p%C3%A9rez-25552a2b7/" class="button_secondary" target="_blank">LinkedIn</a>
+                <a href="https://github.com/storybookpuma" class="button_secondary" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 px-4 border-t border-[var(--primary-color)]/20">
+        <div class="container mx-auto text-center">
+            <p class="text-[var(--text-secondary)]">
+                © 2025 Francisco.
+            </p>
+        </div>
+    </footer>
+
+    
+
+    <script src="./assets/js/main.js"></script>
+
+    
+</body>
+</html>
