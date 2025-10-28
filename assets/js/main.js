@@ -5,6 +5,7 @@ let particleContainer;
 let mobileMenuBtn;
 let mobileMenu;
 let particles = [];
+let particleColors = [];
 let mainNav;
 let typewriterElement;
 let heroParallaxState = {
@@ -13,6 +14,7 @@ let heroParallaxState = {
     contentEl: null,
     particlesEl: null,
     auraEl: null,
+    auraLayers: [],
     mouse: { x: 0, y: 0 }
 };
 let auraCanvasState = {
@@ -47,17 +49,25 @@ const TYPEWRITER_CONFIG = {
 };
 
 
+const FALLBACK_PARTICLE_COLORS = [
+    'rgba(57, 255, 20, 0.18)',
+    'rgba(57, 255, 20, 0.12)',
+    'rgba(120, 255, 203, 0.22)'
+];
+
+const FALLBACK_AURA_COLORS = [
+    'rgba(57, 255, 20, 0.55)',
+    'rgba(17, 209, 140, 0.48)',
+    'rgba(0, 141, 255, 0.4)'
+];
+const FALLBACK_AURA_HIGHLIGHT = 'rgba(203, 255, 233, 0.32)';
+
 const PARTICLE_CONFIG = {
     count: 100,
     minSize: 1,
     maxSize: 4,
     minDuration: 5,
-    maxDuration: 15,
-    colors: [
-        'rgba(57, 255, 20, 0.1)',
-        'rgba(57, 255, 20, 0.05)',
-        'rgba(57, 255, 20, 0.15)'
-    ]
+    maxDuration: 15
 };
 
 
@@ -87,23 +97,58 @@ function prefersReducedMotion() {
 }
 
 
+function getCSSVarPalette(varNames, fallback) {
+    if (typeof window === 'undefined' || !document?.documentElement) {
+        return fallback.slice();
+    }
+
+    try {
+        const computed = getComputedStyle(document.documentElement);
+        const palette = varNames.map((varName, index) => {
+            const value = computed.getPropertyValue(varName).trim();
+            return value || fallback[index] || fallback[0];
+        }).filter(Boolean);
+
+        return palette.length ? palette : fallback.slice();
+    } catch (error) {
+        return fallback.slice();
+    }
+}
+
+function refreshParticleColors() {
+    return getCSSVarPalette([
+        '--particle-color-1',
+        '--particle-color-2',
+        '--particle-color-3'
+    ], FALLBACK_PARTICLE_COLORS);
+}
+
+function refreshAuraColors() {
+    return getCSSVarPalette([
+        '--aura-color-1',
+        '--aura-color-2',
+        '--aura-color-3'
+    ], FALLBACK_AURA_COLORS);
+}
+
 
 
 function createParticle() {
     const particle = document.createElement('div');
     particle.classList.add('particle');
-    
+
     const size = random(PARTICLE_CONFIG.minSize, PARTICLE_CONFIG.maxSize);
     const duration = random(PARTICLE_CONFIG.minDuration, PARTICLE_CONFIG.maxDuration);
-    const color = PARTICLE_CONFIG.colors[Math.floor(Math.random() * PARTICLE_CONFIG.colors.length)];
-    
+    const palette = particleColors.length ? particleColors : FALLBACK_PARTICLE_COLORS;
+    const color = palette[Math.floor(Math.random() * palette.length)];
+
     particle.style.width = `${size}px`;
     particle.style.height = `${size}px`;
     particle.style.left = `${random(0, 100)}%`;
     particle.style.backgroundColor = color;
     particle.style.animationDuration = `${duration}s`;
     particle.style.animationDelay = `-${random(0, duration)}s`;
-    
+
     return particle;
 }
 
@@ -114,10 +159,11 @@ function initParticles() {
     if (!particleContainer || prefersReducedMotion()) {
         return;
     }
-    
+
     particleContainer.innerHTML = '';
     particles = [];
-    
+    particleColors = refreshParticleColors();
+
     for (let i = 0; i < PARTICLE_CONFIG.count; i++) {
         const particle = createParticle();
         particles.push(particle);
@@ -130,7 +176,8 @@ function updateParticles() {
     if (prefersReducedMotion()) {
         return;
     }
-    
+
+    particleColors = refreshParticleColors();
     const width = window.innerWidth;
     let newCount = PARTICLE_CONFIG.count;
     
@@ -464,13 +511,17 @@ function initHeroParallax() {
 
     const content = home.querySelector('.z-10');
     const particlesEl = document.getElementById('particle-container');
-    const auraEl = document.getElementById('aura-canvas') || document.getElementById('aura-bg');
+    const auraWrapper = document.getElementById('hero-aurora');
+    const auraEl = auraWrapper || document.getElementById('aura-canvas') || document.getElementById('aura-bg');
     if (!content || !particlesEl) return;
 
     heroParallaxState.homeEl = home;
     heroParallaxState.contentEl = content;
     heroParallaxState.particlesEl = particlesEl;
     heroParallaxState.auraEl = auraEl || null;
+    heroParallaxState.auraLayers = auraWrapper
+        ? Array.from(auraWrapper.querySelectorAll('.hero-aurora__layer, .hero-aurora__highlight'))
+        : [];
     heroParallaxState.enabled = true;
 
     if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
@@ -497,7 +548,7 @@ function handleHeroParallaxScroll() {
 }
 
 function applyHeroParallax() {
-    const { contentEl, particlesEl, auraEl, homeEl, mouse } = heroParallaxState;
+    const { contentEl, particlesEl, auraEl, homeEl, mouse, auraLayers } = heroParallaxState;
     if (!contentEl || !particlesEl || !homeEl) return;
 
     const rect = homeEl.getBoundingClientRect();
@@ -523,6 +574,16 @@ function applyHeroParallax() {
         const aTy = my * 10 + scrollOffsetY * 0.4;
         auraEl.style.transform = `translate3d(${aTx}px, ${aTy}px, 0)`;
     }
+
+    if (auraLayers && auraLayers.length) {
+        auraLayers.forEach((layer, index) => {
+            const depth = 8 + index * 3.5;
+            const layerTx = mx * depth;
+            const layerTy = my * (5 + index * 2.4) + scrollOffsetY * (0.22 + index * 0.09);
+            layer.style.setProperty('--aurora-parallax-x', `${layerTx}px`);
+            layer.style.setProperty('--aurora-parallax-y', `${layerTy}px`);
+        });
+    }
 }
 
 // --- Canvas aura (curved light streaks) ---
@@ -537,6 +598,13 @@ function initAuraCanvas() {
     auraCanvasState.dpr = dpr;
     auraCanvasState.enabled = true;
 
+    let palette = refreshAuraColors();
+    const highlightColor = getCSSVarPalette(['--aura-highlight'], [FALLBACK_AURA_HIGHLIGHT])[0];
+
+    const updatePalette = () => {
+        palette = refreshAuraColors();
+    };
+
     const resize = () => {
         const rect = canvas.getBoundingClientRect();
         auraCanvasState.width = Math.floor(rect.width * dpr);
@@ -545,6 +613,7 @@ function initAuraCanvas() {
         canvas.height = auraCanvasState.height;
         canvas.style.width = rect.width + 'px';
         canvas.style.height = rect.height + 'px';
+        updatePalette();
     };
     resize();
     window.addEventListener('resize', throttle(resize, 250));
@@ -554,16 +623,26 @@ function initAuraCanvas() {
         ro.observe(home);
     }
 
-    const palette = [
-        'rgba(57,255,20,0.5)',
-        'rgba(0,255,209,0.45)',
-        'rgba(0,170,255,0.4)'
-    ];
-
     const draw = () => {
         const { ctx, width, height } = auraCanvasState;
         auraCanvasState.t += 0.008; // slower
         ctx.clearRect(0, 0, width, height);
+
+        // Background glow
+        ctx.globalCompositeOperation = 'source-over';
+        const bgGradient = ctx.createRadialGradient(
+            width * 0.5,
+            height * 0.15,
+            Math.max(width, height) * 0.05,
+            width * 0.5,
+            height * 0.5,
+            Math.max(width, height) * 0.8
+        );
+        bgGradient.addColorStop(0, highlightColor);
+        bgGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = bgGradient;
+        ctx.fillRect(0, 0, width, height);
+
         ctx.globalCompositeOperation = 'lighter';
 
         const baseAmp = height * 0.18;
@@ -601,6 +680,7 @@ function initAuraCanvas() {
     };
 
     if (auraCanvasState.raf) cancelAnimationFrame(auraCanvasState.raf);
+    updatePalette();
     draw();
 }
 
