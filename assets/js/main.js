@@ -7,6 +7,35 @@ let mobileMenu;
 let particles = [];
 let mainNav;
 let typewriterElement;
+let heroParallaxState = {
+    enabled: false,
+    homeEl: null,
+    contentEl: null,
+    particlesEl: null,
+    auraEl: null,
+    mouse: { x: 0, y: 0 }
+};
+let auraCanvasState = {
+    canvas: null,
+    ctx: null,
+    width: 0,
+    height: 0,
+    dpr: 1,
+    t: 0,
+    raf: 0,
+    enabled: false
+};
+let scrollProgressEl;
+let imageModalState = {
+    modal: null,
+    content: null,
+    img: null,
+    gallery: [],
+    index: -1
+};
+let magneticButtons = [];
+let lastScrollY = 0;
+let navHidden = false;
 
 const TYPEWRITER_CONFIG = {
     text: (typeof document !== 'undefined' && document.documentElement && document.documentElement.lang === 'en')
@@ -238,7 +267,10 @@ function initMobileMenu() {
     mobileMenuBtn.addEventListener('click', handleMobileMenuClick);
     
     const menuLinks = mobileMenu.querySelectorAll('a');
-    menuLinks.forEach(link => {
+    menuLinks.forEach((link, i) => {
+        link.style.opacity = '0';
+        link.style.transform = 'translateY(6px)';
+        link.style.transition = `opacity 220ms var(--ease-smooth) ${40 + i*40}ms, transform 220ms var(--ease-smooth) ${40 + i*40}ms`;
         link.addEventListener('click', closeMobileMenu);
     });
     
@@ -295,6 +327,11 @@ function openMobileMenu() {
         if (svg) {
             svg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`;
         }
+        const links = mobileMenu.querySelectorAll('a');
+        links.forEach((link) => {
+            link.style.opacity = '1';
+            link.style.transform = 'translateY(0)';
+        });
     });
 }
 
@@ -311,6 +348,11 @@ function closeMobileMenu() {
         if (svg) {
             svg.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>`;
         }
+        const links = mobileMenu.querySelectorAll('a');
+        links.forEach((link) => {
+            link.style.opacity = '0';
+            link.style.transform = 'translateY(6px)';
+        });
     });
 }
 
@@ -413,6 +455,320 @@ function initScrollEffects() {
         observer.observe(el);
     });
 }
+// --- Hero Parallax (ambient) ---
+function initHeroParallax() {
+    if (prefersReducedMotion()) return;
+
+    const home = document.getElementById('home');
+    if (!home) return;
+
+    const content = home.querySelector('.z-10');
+    const particlesEl = document.getElementById('particle-container');
+    const auraEl = document.getElementById('aura-canvas') || document.getElementById('aura-bg');
+    if (!content || !particlesEl) return;
+
+    heroParallaxState.homeEl = home;
+    heroParallaxState.contentEl = content;
+    heroParallaxState.particlesEl = particlesEl;
+    heroParallaxState.auraEl = auraEl || null;
+    heroParallaxState.enabled = true;
+
+    if (window.matchMedia('(hover:hover) and (pointer:fine)').matches) {
+        home.addEventListener('mousemove', throttle(handleHeroMouseMove, 16));
+    }
+
+    handleHeroParallaxScroll();
+}
+
+function handleHeroMouseMove(e) {
+    const homeRect = heroParallaxState.homeEl.getBoundingClientRect();
+    const cx = homeRect.left + homeRect.width / 2;
+    const cy = homeRect.top + homeRect.height / 2;
+    const dx = (e.clientX - cx) / homeRect.width;   // ~ -0.5..0.5
+    const dy = (e.clientY - cy) / homeRect.height;  // ~ -0.5..0.5
+    heroParallaxState.mouse.x = Math.max(-0.6, Math.min(0.6, dx));
+    heroParallaxState.mouse.y = Math.max(-0.6, Math.min(0.6, dy));
+    applyHeroParallax();
+}
+
+function handleHeroParallaxScroll() {
+    if (!heroParallaxState.enabled) return;
+    applyHeroParallax();
+}
+
+function applyHeroParallax() {
+    const { contentEl, particlesEl, auraEl, homeEl, mouse } = heroParallaxState;
+    if (!contentEl || !particlesEl || !homeEl) return;
+
+    const rect = homeEl.getBoundingClientRect();
+    const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight));
+    const scrollOffsetY = -10 * progress; // up to -10px
+
+    const mx = mouse.x;
+    const my = mouse.y;
+
+    // Content: subtle
+    const contentTx = mx * 6;
+    const contentTy = my * 4 + scrollOffsetY;
+    contentEl.style.transform = `translate3d(${contentTx}px, ${contentTy}px, 0)`;
+
+    // Particles: opposite for depth + slight scale
+    const pTx = mx * -10;
+    const pTy = my * -8 + scrollOffsetY * 0.6;
+    particlesEl.style.transform = `translate3d(${pTx}px, ${pTy}px, 0) scale(1.02)`;
+
+    // Aura background: subtle larger drift
+    if (auraEl) {
+        const aTx = mx * 14;
+        const aTy = my * 10 + scrollOffsetY * 0.4;
+        auraEl.style.transform = `translate3d(${aTx}px, ${aTy}px, 0)`;
+    }
+}
+
+// --- Canvas aura (curved light streaks) ---
+function initAuraCanvas() {
+    if (prefersReducedMotion()) return;
+    const canvas = document.getElementById('aura-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    auraCanvasState.canvas = canvas;
+    auraCanvasState.ctx = ctx;
+    auraCanvasState.dpr = dpr;
+    auraCanvasState.enabled = true;
+
+    const resize = () => {
+        const rect = canvas.getBoundingClientRect();
+        auraCanvasState.width = Math.floor(rect.width * dpr);
+        auraCanvasState.height = Math.floor(rect.height * dpr);
+        canvas.width = auraCanvasState.width;
+        canvas.height = auraCanvasState.height;
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+    };
+    resize();
+    window.addEventListener('resize', throttle(resize, 250));
+    const home = document.getElementById('home');
+    if (home && 'ResizeObserver' in window) {
+        const ro = new ResizeObserver(() => resize());
+        ro.observe(home);
+    }
+
+    const palette = [
+        'rgba(57,255,20,0.5)',
+        'rgba(0,255,209,0.45)',
+        'rgba(0,170,255,0.4)'
+    ];
+
+    const draw = () => {
+        const { ctx, width, height } = auraCanvasState;
+        auraCanvasState.t += 0.008; // slower
+        ctx.clearRect(0, 0, width, height);
+        ctx.globalCompositeOperation = 'lighter';
+
+        const baseAmp = height * 0.18;
+        const lines = 9;
+        const spacing = height * 0.06;
+        const centerY = height * 0.52; // slightly below center
+
+        for (let i = 0; i < lines; i++) {
+            const color = palette[i % palette.length];
+            const amp = baseAmp * (0.7 + 0.35 * Math.sin(auraCanvasState.t * 0.5 + i));
+            const freq = 0.9 + 0.12 * i;
+            const phase = auraCanvasState.t * (0.35 + i * 0.05) + i * 0.45;
+            const offset = (i - (lines - 1) / 2) * spacing;
+
+            ctx.beginPath();
+            for (let x = 0; x <= width; x += 4) {
+                const nx = x / width;
+                const y = centerY + offset + Math.sin(nx * Math.PI * freq + phase) * amp;
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            const grad = ctx.createLinearGradient(0, centerY - baseAmp, width, centerY + baseAmp);
+            grad.addColorStop(0, 'rgba(0,0,0,0)');
+            grad.addColorStop(0.22, color);
+            grad.addColorStop(0.5, color);
+            grad.addColorStop(0.78, 'rgba(0,0,0,0)');
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 6;
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 35;
+            ctx.stroke();
+        }
+
+        auraCanvasState.raf = requestAnimationFrame(draw);
+    };
+
+    if (auraCanvasState.raf) cancelAnimationFrame(auraCanvasState.raf);
+    draw();
+}
+
+
+// --- Scroll progress bar ---
+function initScrollProgress() {
+    if (prefersReducedMotion()) return;
+    scrollProgressEl = document.getElementById('scroll-progress');
+    if (!scrollProgressEl) {
+        const barWrap = document.createElement('div');
+        barWrap.id = 'scroll-progress';
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        barWrap.appendChild(bar);
+        document.body.appendChild(barWrap);
+        scrollProgressEl = barWrap;
+    }
+    updateScrollProgress();
+}
+
+function updateScrollProgress() {
+    if (!scrollProgressEl) return;
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) : 0;
+    const bar = scrollProgressEl.firstElementChild;
+    if (bar) bar.style.transform = `scaleX(${Math.max(0, Math.min(1, progress))})`;
+}
+
+
+// --- Image modal (lightbox) ---
+function initImageModal() {
+    imageModalState.modal = document.createElement('div');
+    imageModalState.modal.className = 'image-modal';
+    imageModalState.modal.setAttribute('role', 'dialog');
+    imageModalState.modal.setAttribute('aria-modal', 'true');
+
+    const content = document.createElement('div');
+    content.className = 'image-modal__content';
+    const img = document.createElement('img');
+    img.className = 'image-modal__img';
+    content.appendChild(img);
+    // Nav controls
+    const nav = document.createElement('div');
+    nav.className = 'image-modal__nav';
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'image-modal__btn';
+    prevBtn.setAttribute('aria-label', 'Anterior');
+    prevBtn.innerHTML = '&#10094;';
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'image-modal__btn';
+    nextBtn.setAttribute('aria-label', 'Siguiente');
+    nextBtn.innerHTML = '&#10095;';
+    nav.appendChild(prevBtn);
+    nav.appendChild(nextBtn);
+    content.appendChild(nav);
+    // Close button
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'image-modal__btn image-modal__close';
+    closeBtn.setAttribute('aria-label', 'Cerrar');
+    closeBtn.innerHTML = '&#10005;';
+    content.appendChild(closeBtn);
+    imageModalState.modal.appendChild(content);
+    document.body.appendChild(imageModalState.modal);
+
+    imageModalState.content = content;
+    imageModalState.img = img;
+
+    imageModalState.modal.addEventListener('click', (e) => {
+        if (e.target === imageModalState.modal || e.target === imageModalState.content) {
+            closeImageModal();
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeImageModal();
+        if (!imageModalState.modal.classList.contains('open')) return;
+        if (e.key === 'ArrowRight') galleryNext();
+        if (e.key === 'ArrowLeft') galleryPrev();
+    });
+
+    // Delegado: abrir modal al click en imágenes con data-lightbox
+    document.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target && target.matches('img[data-lightbox]')) {
+            e.preventDefault();
+            // Build gallery within same section/grid
+            const scope = target.closest('#projects, #about, #home, #skills, body') || document;
+            const candidates = Array.from(scope.querySelectorAll('img[data-lightbox]'));
+            imageModalState.gallery = candidates.map(el => el.getAttribute('src') || el.getAttribute('data-src')).filter(Boolean);
+            imageModalState.index = Math.max(0, imageModalState.gallery.indexOf(target.getAttribute('src') || target.getAttribute('data-src')));
+            openImageModal(imageModalState.gallery[imageModalState.index]);
+        }
+    });
+
+    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); galleryPrev(); });
+    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); galleryNext(); });
+    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeImageModal(); });
+}
+
+function openImageModal(src) {
+    if (!src || !imageModalState.modal) return;
+    imageModalState.img.src = src;
+    imageModalState.modal.classList.add('open');
+}
+
+function closeImageModal() {
+    if (!imageModalState.modal) return;
+    imageModalState.modal.classList.remove('open');
+}
+
+function galleryNext() {
+    if (!imageModalState.gallery.length) return;
+    imageModalState.index = (imageModalState.index + 1) % imageModalState.gallery.length;
+    imageModalState.img.src = imageModalState.gallery[imageModalState.index];
+}
+
+function galleryPrev() {
+    if (!imageModalState.gallery.length) return;
+    imageModalState.index = (imageModalState.index - 1 + imageModalState.gallery.length) % imageModalState.gallery.length;
+    imageModalState.img.src = imageModalState.gallery[imageModalState.index];
+}
+// --- View Transitions (ES <-> EN) ---
+function initViewTransitions() {
+    const supportsVT = 'startViewTransition' in document;
+    if (!supportsVT) return;
+
+    const langLinks = document.querySelectorAll('a[hreflang]');
+    langLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const url = link.getAttribute('href');
+            if (!url || url.startsWith('#')) return;
+            e.preventDefault();
+            document.startViewTransition(() => {
+                window.location.href = url;
+            });
+        });
+    });
+}
+
+
+// --- Lazy images + shimmer ---
+function initLazyImages() {
+    const imgs = document.querySelectorAll('img[data-src]');
+    if (!imgs.length) return;
+
+    const onIntersect = (entries, observer) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const img = entry.target;
+            observer.unobserve(img);
+            const src = img.getAttribute('data-src');
+            if (!src) return;
+
+            img.decoding = 'async';
+            img.loading = 'lazy';
+            img.classList.add('img-loading');
+            img.src = src;
+            img.addEventListener('load', () => {
+                img.classList.remove('img-loading');
+                img.classList.add('lazy-loaded');
+            }, { once: true });
+        });
+    };
+
+    const io = new IntersectionObserver(onIntersect, { rootMargin: '200px 0px' });
+    imgs.forEach(img => io.observe(img));
+}
 
 
 
@@ -425,6 +781,9 @@ const handleResize = throttle(() => {
 const handleScroll = throttle(() => {
     handleNavScroll();
     updateActiveNavigation();
+    handleHeroParallaxScroll();
+    updateScrollProgress();
+    handleAutoHideNav();
 }, 50); 
 
 
@@ -442,6 +801,16 @@ function init() {
         initSmoothNavigation();
         initScrollEffects();
         initProjectsToggle();
+        initHeroParallax();
+        initAuraCanvas();
+        initViewTransitions();
+        initLazyImages();
+        initScrollProgress();
+        initImageModal();
+        initMagneticButtons();
+        initSkillsFilters();
+        initSkillMeters();
+        initSkillCardTilt();
         
         window.addEventListener('resize', handleResize);
         window.addEventListener('scroll', handleScroll);
@@ -455,6 +824,122 @@ function init() {
         
         
     } catch (error) {
+    }
+}
+// --- Skills: filters ---
+function initSkillsFilters() {
+    const filtersWrap = document.querySelector('.skills-filters');
+    if (!filtersWrap) return;
+    const buttons = Array.from(filtersWrap.querySelectorAll('.skills-filter'));
+    const cards = Array.from(document.querySelectorAll('#skills .skill-category'));
+    const grid = document.querySelector('#skills .grid');
+    if (!buttons.length || !cards.length || !grid) return;
+
+    const updateLayout = () => {
+        const visible = cards.filter(c => !c.classList.contains('hidden'));
+        if (visible.length === 1) grid.classList.add('skills-single');
+        else grid.classList.remove('skills-single');
+    };
+
+    const applyFilter = (key) => {
+        buttons.forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === key));
+        cards.forEach(card => {
+            const cat = card.getAttribute('data-cat') || 'all';
+            if (key === 'all' || key === cat) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+        updateLayout();
+    };
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const key = btn.getAttribute('data-filter') || 'all';
+            if ('startViewTransition' in document) {
+                document.startViewTransition(() => applyFilter(key));
+            } else {
+                applyFilter(key);
+            }
+        });
+    });
+
+    // Initial state
+    updateLayout();
+}
+
+// --- Skills: meters animation on view ---
+function initSkillMeters() {
+    // No meters/rings in current design; keep function for compatibility
+    return;
+}
+
+// --- Skills: card tilt + moving glow ---
+function initSkillCardTilt() {
+    const cards = Array.from(document.querySelectorAll('#skills .skill-category'));
+    if (!cards.length) return;
+    if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    const maxTilt = 5; // degrees
+    cards.forEach(card => {
+        card.style.transformStyle = 'preserve-3d';
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const cx = rect.left + rect.width/2;
+            const cy = rect.top + rect.height/2;
+            const dx = (e.clientX - cx) / (rect.width/2);
+            const dy = (e.clientY - cy) / (rect.height/2);
+            const tiltX = Math.max(-1, Math.min(1, -dy)) * maxTilt;
+            const tiltY = Math.max(-1, Math.min(1, dx)) * maxTilt;
+            const mx = ((e.clientX - rect.left) / rect.width) * 100;
+            const my = ((e.clientY - rect.top) / rect.height) * 100;
+            card.style.setProperty('--tiltX', tiltX + 'deg');
+            card.style.setProperty('--tiltY', tiltY + 'deg');
+            card.style.setProperty('--mx', mx + '%');
+            card.style.setProperty('--my', my + '%');
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.setProperty('--tiltX', '0deg');
+            card.style.setProperty('--tiltY', '0deg');
+        });
+    });
+}
+
+// --- Magnetic buttons ---
+function initMagneticButtons() {
+    magneticButtons = Array.from(document.querySelectorAll('.button_primary, .button_secondary'));
+    if (!magneticButtons.length) return;
+    if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    magneticButtons.forEach(btn => {
+        const strength = 0.25; // subtle
+        btn.style.willChange = 'transform';
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const mx = e.clientX - (rect.left + rect.width/2);
+            const my = e.clientY - (rect.top + rect.height/2);
+            btn.style.transform = `translate(${mx*strength}px, ${my*strength}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0, 0)';
+        });
+    });
+}
+
+// --- Auto-hide navbar on scroll down ---
+function handleAutoHideNav() {
+    const nav = document.getElementById('main-nav');
+    if (!nav) return;
+    const currentY = window.scrollY;
+    const delta = currentY - lastScrollY;
+    lastScrollY = currentY;
+    const threshold = 8;
+    if (Math.abs(delta) < threshold) return;
+    if (delta > 0 && currentY > 80 && !navHidden) {
+        nav.style.transform = 'translateY(-110%)';
+        navHidden = true;
+    } else if (delta < 0 && navHidden) {
+        nav.style.transform = 'translateY(0)';
+        navHidden = false;
     }
 }
 

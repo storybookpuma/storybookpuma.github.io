@@ -59,6 +59,7 @@
 
     <section id="home" class="relative flex min-h-screen flex-col items-center justify-center bg-[var(--background-color)] p-4 overflow-hidden">
         <div class="particle-bg" id="particle-container" aria-hidden="true"></div>
+        <canvas class="aura-canvas" id="aura-canvas" aria-hidden="true"></canvas>
         
         <div class="z-10 flex flex-col items-center text-center max-w-4xl">
             <h1 class="text-4xl font-bold text-[var(--text-primary)] md:text-6xl lg:text-7xl mb-4">
@@ -383,12 +384,22 @@
     <section id="skills" class="py-20 px-4">
         <div class="container mx-auto max-w-6xl">
             <h2 class="section-title">Habilidades</h2>
+            <div class="skills-filters flex flex-wrap gap-2 justify-center mb-8">
+                <button class="skills-filter active" data-filter="all">Todas</button>
+                <button class="skills-filter" data-filter="blue">Blue Team &amp; SOC</button>
+                <button class="skills-filter" data-filter="red">Red Team</button>
+                <button class="skills-filter" data-filter="programming">Programación</button>
+                <button class="skills-filter" data-filter="network">Red/Detección</button>
+                <button class="skills-filter" data-filter="intel">Threat Intel</button>
+                <button class="skills-filter" data-filter="studies">Estudios</button>
+            </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <div class="skill-category">
+                <div class="skill-category" data-cat="blue">
                     <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
                         🛡️ Blue Team & SOC
                     </h3>
+                    
                     <ul class="space-y-2">
                         <li class="skill-item">SIEM (Splunk, ELK Stack, Kibana)</li>
                         <li class="skill-item">Kibana & Dashboards</li>
@@ -400,10 +411,11 @@
                     </ul>
                 </div>
 
-                <div class="skill-category">
+                <div class="skill-category" data-cat="red">
                     <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
                         ⚔️ Red Team & Pentesting
                     </h3>
+                    
                     <ul class="space-y-2">
                         <li class="skill-item">Buffer Overflow</li>
                         <li class="skill-item">Web Exploitation</li>
@@ -416,10 +428,11 @@
                     </ul>
                 </div>
 
-                <div class="skill-category">
+                <div class="skill-category" data-cat="programming">
                     <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
                         💻 Programming & Tools
                     </h3>
+                    
                     <ul class="space-y-2">
                         <li class="skill-item">Python</li>
                         <li class="skill-item">Java</li>
@@ -433,10 +446,11 @@
                     </ul>
                 </div>
 
-                <div class="skill-category">
+                <div class="skill-category" data-cat="network">
                     <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
                         🌐 Network & Detection
                     </h3>
+                    
                     <ul class="space-y-2">
                         <li class="skill-item">Suricata IDS/IPS</li>
                         <li class="skill-item">Wireshark</li>
@@ -447,10 +461,11 @@
                     </ul>
                 </div>
 
-                <div class="skill-category">
+                <div class="skill-category" data-cat="intel">
                     <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
                         🔍 Threat Intelligence
                     </h3>
+                    
                     <ul class="space-y-2">
                         <li class="skill-item">Threat Hunting</li>
                         <li class="skill-item">Malware Analysis</li>
@@ -462,12 +477,13 @@
                     </ul>
                 </div>
 
-                <div class="skill-category">
+                <div class="skill-category" data-cat="studies">
                     <h3 class="text-xl font-semibold text-[var(--text-primary)] mb-4 flex items-center">
                         🏆 Estudios y Certificaciones
                     </h3>
+                    
                     <ul class="space-y-2">
-                        <li class="skill-item">eJPTv2 (En proceso)</li>
+                        <li class="skill-item">eJPTv2</li>
                         <li class="skill-item">CompTIA Security+ (En proceso)</li>
                         <li class="skill-item">Ingeniería en TI</li>
                         <li class="skill-item">HTB SOC Path</li>
