@@ -1,0 +1,64 @@
+/* Hero video background + console styling */
+
+:root{
+  --bg-start:#0B0B12; --bg-end:#121212;
+  --aurora-1:#00FF5F; --aurora-2:#00E676; --aurora-3:#00B37A;
+  --trail:#50FA7B; --trail-rgb:80,250,123; --noise:0.03;
+}
+
+/* Container */
+/* Full-bleed hero with video */
+#hero-video{ position:relative; min-height:100vh; width:100%; display:flex; align-items:center; justify-content:center; isolation:isolate; overflow:hidden; background:black; }
+#hero-video .hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(8px) brightness(0.6); transform:scale(1.02); }
+#hero-video::after{ content:""; position:absolute; inset:0; pointer-events:none; z-index:1; background:radial-gradient(120% 90% at 50% 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.55) 100%); }
+
+/* Ensure full-bleed hero inside #home wrapper */
+#home{ padding:0; }
+
+/* Subtle SVG noise overlay */
+/* remove old aurora pseudo textures by not applying to #hero-video */
+
+/* Layers (bands) */
+/* remove ribbons (no longer used) */
+
+/* Light trails */
+/* no trails */
+
+/* Content above background */
+.hero-content{ position:relative; z-index:5; display:flex; align-items:center; justify-content:center; width:100%; padding:2rem; }
+
+/* Animations */
+@keyframes driftAurora{
+  0% { transform:translate3d(0,0,0) rotate(-40deg); }
+  25%{ transform:translate3d(3%, -2%, 0) rotate(-38deg); }
+  50%{ transform:translate3d(6%, 2%, 0) rotate(-41.5deg); }
+  75%{ transform:translate3d(2%, -4%, 0) rotate(-39deg); }
+  100%{ transform:translate3d(0,0,0) rotate(-40deg); }
+}
+
+/* no trails animation per spec; texture remains static */
+
+/* Reduced motion: freeze a clean frame */
+@media (prefers-reduced-motion: reduce){
+  #hero-video .hero-video{ filter:blur(8px) brightness(0.65); }
+}
+
+/* Console styling inside hero */
+.hero-content{ position:relative; z-index:2; display:flex; align-items:center; justify-content:center; width:100%; padding:2rem; }
+.hero-console{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background: rgba(0,0,0,0.35); border:1px solid rgba(0,255,95,0.18); border-radius:14px; padding:1.25rem 1.25rem; box-shadow:0 10px 40px rgba(0,255,95,0.08), inset 0 0 0 1px rgba(80,250,123,0.06); backdrop-filter: blur(8px); }
+.hero-console .console-header{ width:100%; display:flex; gap:8px; justify-content:flex-start; align-items:center; margin-bottom:12px; }
+.hero-console .console-header .dot{ width:10px; height:10px; border-radius:50%; display:inline-block; opacity:0.9; }
+.hero-console .console-header .dot.red{ background:#ff5f56; }
+.hero-console .console-header .dot.yellow{ background:#ffbd2e; }
+.hero-console .console-header .dot.green{ background:#27c93f; }
+.hero-console .console-line{ position:relative; }
+.hero-console .console-line::before{ content:"$ "; color: var(--aurora-2); margin-right:4px; text-shadow:0 0 8px rgba(0,230,118,0.35); }
+.hero-console .console-output{ color: var(--text-secondary); opacity:0.9; }
+
+/* Mobile: avoid overlap with fixed mobile nav pill */
+@media (max-width: 640px){
+  #hero-video .hero-content{ padding-left:1rem; padding-right:1rem; }
+  .hero-console{ margin-top: calc(84px + env(safe-area-inset-top)); }
+}
+
+

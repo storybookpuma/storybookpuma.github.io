@@ -20,6 +20,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     
     <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="stylesheet" href="./assets/css/aurora.css">
 </head>
 <body>
     <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out">
@@ -57,44 +58,40 @@
         </div>
     </nav>
 
-    <section id="home" class="relative flex min-h-screen flex-col items-center justify-center bg-[var(--background-color)] p-4 overflow-hidden">
-        <div class="hero-aurora" id="hero-aurora" aria-hidden="true">
-            <canvas class="hero-aurora__canvas aura-canvas" id="aura-canvas"></canvas>
-            <div class="hero-aurora__layer hero-aurora__layer--1"></div>
-            <div class="hero-aurora__layer hero-aurora__layer--2"></div>
-            <div class="hero-aurora__layer hero-aurora__layer--3"></div>
-            <div class="hero-aurora__highlight hero-aurora__highlight--top"></div>
-            <div class="hero-aurora__highlight hero-aurora__highlight--bottom"></div>
-        </div>
-        <div class="particle-bg" id="particle-container" aria-hidden="true"></div>
-
-        <div class="z-10 flex flex-col items-center text-center max-w-4xl">
-            <h1 class="text-4xl font-bold text-[var(--text-primary)] md:text-6xl lg:text-7xl mb-4">
-                <span id="typewriter-text"></span>
-                <span class="cursor-blink"></span>
-            </h1>
-            
-            <p class="text-lg text-[var(--text-secondary)] md:text-xl lg:text-2xl mb-8 max-w-2xl">
-                SOC Analyst &amp; Red Team Enthusiast
-            </p>
-            
-            <p class="text-base text-[var(--text-secondary)] mb-8 max-w-3xl leading-relaxed">
-                Apasionado por la ciberseguridad ofensiva y defensiva, con experiencia práctica en pentesting, 
-                escalada de privilegios, análisis de logs y simulación de ataques en entornos controlados.
-                Comprometido con proteger sistemas, entender vectores de ataque reales y compartir el conocimiento técnico con claridad.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#projects" class="button_primary">Ver Proyectos</a>
-                <a href="#contact" class="button_secondary">Contactar</a>
+    <section id="home" class="relative flex min-h-screen flex-col items-center justify-center bg-[var(--background-color)] p-0 overflow-hidden">
+        <section id="hero-video" aria-label="Intro">
+            <video class="hero-video" src="./assets/hero.mp4" autoplay muted loop playsinline preload="auto"></video>
+            <div class="hero-content">
+                <div class="z-10 flex flex-col items-center text-center max-w-4xl hero-console">
+                    <div class="console-header" aria-hidden="true">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <h1 class="text-4xl font-bold text-[var(--text-primary)] md:text-6xl lg:text-7xl mb-4 console-line">
+                        <span id="typewriter-text"></span>
+                        <span class="cursor-blink"></span>
+                    </h1>
+                    <p class="text-lg text-[var(--text-secondary)] md:text-xl lg:text-2xl mb-8 max-w-2xl console-line">
+                        SOC Analyst &amp; Red Team Enthusiast
+                    </p>
+                    <p class="text-base text-[var(--text-secondary)] mb-8 max-w-3xl leading-relaxed console-output">
+                        Apasionado por la ciberseguridad ofensiva y defensiva, con experiencia práctica en pentesting, 
+                        escalada de privilegios, análisis de logs y simulación de ataques en entornos controlados.
+                        Comprometido con proteger sistemas, entender vectores de ataque reales y compartir el conocimiento técnico con claridad.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#projects" class="button_primary">Ver Proyectos</a>
+                        <a href="#contact" class="button_secondary">Contactar</a>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-            <svg class="w-6 h-6 text-[var(--primary-color)] scroll-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </div>
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                <svg class="w-6 h-6 text-[var(--primary-color)] scroll-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </section>
     </section>
 
     <section id="about" class="py-20 px-4">
