@@ -9,6 +9,12 @@
 /* Container */
 /* Full-bleed hero with video */
 #hero-video{ position:relative; min-height:100vh; width:100%; display:flex; align-items:center; justify-content:center; isolation:isolate; overflow:hidden; background:black; }
+@supports (height: 100svh){
+  #hero-video{ min-height:100svh; }
+}
+@supports (height: 100dvh){
+  #hero-video{ min-height:100dvh; }
+}
 #hero-video .hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(8px) brightness(0.6); transform:scale(1.02); }
 #hero-video::after{ content:""; position:absolute; inset:0; pointer-events:none; z-index:1; background:radial-gradient(120% 90% at 50% 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.55) 100%); }
 
