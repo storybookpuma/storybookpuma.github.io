@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* 
+   MINIMALIST PORTFOLIO STYLES
+   Cleaned & Optimized
+*/
+
+:root {
+    /* Core Palette - Dark Theme */
+    --background-color: #000000;
+    /* Pure Black as per repo */
+    --background-secondary: #111111;
+
+    /* Typography Colors */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.5);
+    /* Exact opacity from repo */
+    --text-muted: rgba(255, 255, 255, 0.5);
+
+    /* Borders & Accents (Minimal) */
+    --border-color: rgba(255, 255, 255, 0.1);
+
+    /* Utilities */
+    --transition-fast: 0.2s ease-out;
+}
+
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    /* Critical for that crisp look */
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    line-height: 1.5;
+    /* Default is usually 1.5 in Tailwind but explicit here */
+}
+
+/* Text Selection Color */
+::selection {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+/* Scrollbar Customization (Optional, keeps it sleek) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Portafolio de ciberseguridad - SOC Analyst & Red Team Enthusiast">
+    <meta name="keywords" content="ciberseguridad, cybersecurity, SOC analyst, red team, ethical hacking, pentesting">
+    <meta name="theme-color" content="#0d0f14">
+
+    <!-- iOS Safari - Pantalla completa -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>Francisco - Portfolio</title>
+
+    <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
+    <link rel="alternate" hreflang="es" href="./">
+    <link rel="alternate" hreflang="en" href="en/">
+    <link rel="alternate" hreflang="x-default" href="./">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="stylesheet" href="./assets/css/logo.css">
+</head>
+
+<body>
+    <!-- Premium Animated Logo -->
+    <div class="logo-wrapper">
+        <a href="#home" class="logo-link" aria-label="Go to home">
+            <div class="logo-box">
+                <div class="logo-inner"></div>
+            </div>
+        </a>
+    </div>
+
+    <section id="home"
+        class="relative flex min-h-screen flex-col items-center justify-center bg-[var(--background-color)] p-0">
+        <!-- Main Container: Exact Repro of max-w-[500px] -->
+        <div class="max-w-[500px] mx-auto px-4 py-[115px]">
+
+            <!-- HEADER / PROFILE SECTION -->
+            <header class="grid grid-cols-4 gap-4 items-center mb-10">
+                <div class="col-span-1">
+                    <img src="./assets/images/profile.jpg" alt="Francisco Ramón Avatar"
+                        class="w-24 h-24 rounded-full bg-[#111] object-cover">
+                </div>
+                <div class="col-span-3">
+                    <h1 class="text-xl font-bold text-white tracking-tight leading-tight">Francisco Ramón</h1>
+                    <p class="text-[15px] text-white/50 font-normal">Ingeniero en Tecnologías de la Información</p>
+                    <!-- Link Style from Repo -->
+                    <a href="https://github.com/storybookpuma" target="_blank"
+                        class="text-[15px] text-white/50 hover:underline block mt-0.5">
+                        @storybookpuma
+                    </a>
+                </div>
+            </header>
+
+            <!-- SECCIÓN SOBRE MÍ -->
+            <section id="about" class="mb-14">
+                <h2 class="text-base font-bold text-white mb-2">Sobre mí</h2>
+                <div class="text-[15px] leading-relaxed text-white/90">
+                    <p>
+                        Soy Francisco.
+                        Enfocado en estrategias de ciberseguridad defensivas y ofensivas que mejoren la resiliencia de
+                        los sistemas.
+                        En constante aprendizaje.
+                    </p>
+                </div>
+            </section>
+
+            <!-- SECCIÓN EXPERIENCIA LABORAL -->
+            <section id="experience" class="mb-14">
+                <h2 class="text-base font-bold text-white mb-10">Experiencia Laboral</h2>
+
+                <div class="flex flex-col gap-10">
+
+                    <!-- Animateurs -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">
+                            2025 – Presente
+                        </div>
+                        <div class="col-span-3">
+                            <a href="#" class="group block">
+                                <h3 class="text-base font-bold text-white inline-flex items-center gap-2 mb-2">
+                                    IT Support & Cloud – Animateurs
+                                    <img src="./assets/images/arrow-link.svg" class="w-2.5 h-2.5 opacity-100 invert"
+                                        alt="arrow">
+                                </h3>
+                                <p class="text-[15px] leading-relaxed text-white/90 mb-2">
+                                    Encargado de infraestructura Cloud (Cloudflare, TrueNAS, Nextcloud) y soporte a
+                                    incidencias. Implementación de buenas prácticas de ciberseguridad para 15 becarios.
+                                </p>
+                                <p class="text-[15px] text-white/50">
+                                    Cloudflare • TrueNAS • Nextcloud
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECCIÓN PROYECTOS -->
+            <section id="projects" class="mb-14">
+                <h2 class="text-base font-bold text-white mb-10">Proyectos</h2>
+
+                <div class="flex flex-col gap-10">
+
+                    <!-- HTB / Practical Experience -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">
+                            2024 – Presente
+                        </div>
+                        <div class="col-span-3">
+                            <a href="https://app.hackthebox.com/users/1917807" target="_blank" class="group block">
+                                <h3 class="text-base font-bold text-white inline-flex items-center gap-2 mb-2">
+                                    Hack The Box – Laboratorios Avanzados
+                                    <img src="./assets/images/arrow-link.svg" class="w-2.5 h-2.5 opacity-100 invert"
+                                        alt="arrow">
+                                </h3>
+                                <p class="text-[15px] leading-relaxed text-white/90 mb-2">
+                                    Resolución de +60 máquinas y laboratorios vulnerables.
+                                    Desarrollo de metodología propia de enumeración y explotación.
+                                </p>
+                                <p class="text-[15px] text-white/50">
+                                    Linux • Windows • CTF • OWASP
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 1: GRC -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">
+                            2025
+                        </div>
+                        <div class="col-span-3">
+                            <a href="https://github.com/storybookpuma/GRC-Project" target="_blank" class="group block">
+                                <h3 class="text-base font-bold text-white inline-flex items-center gap-2 mb-2">
+                                    Proyecto GRC – Gestión de Riesgos (Security+)
+                                    <img src="./assets/images/arrow-link.svg" class="w-2.5 h-2.5 opacity-100 invert"
+                                        alt="arrow">
+                                </h3>
+                                <p class="text-[15px] leading-relaxed text-white/90 mb-2">
+                                    Diseño e implementación de un programa de gestión de riesgos alineado con conceptos
+                                    de Security+, incluyendo identificación de riesgos, estrategias de tratamiento,
+                                    políticas de seguridad y gobernanza de respuesta ante incidentes.
+                                </p>
+                                <p class="text-[15px] text-white/50">
+                                    GRC • Risk Management • Security+ • Compliance
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Splunk Windows Attacks -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">
+                            2024
+                        </div>
+                        <div class="col-span-3">
+                            <a href="https://github.com/storybookpuma/splunk-windows-attacks" target="_blank"
+                                class="group block">
+                                <h3 class="text-base font-bold text-white inline-flex items-center gap-2 mb-2">
+                                    Detección de Ataques Windows con Splunk
+                                    <img src="./assets/images/arrow-link.svg" class="w-2.5 h-2.5 opacity-100 invert"
+                                        alt="arrow">
+                                </h3>
+                                <p class="text-[15px] leading-relaxed text-white/90 mb-2">
+                                    Detección de ataques críticos en entornos Windows como Kerberoasting, Pass‑the‑Hash
+                                    y Pass‑the‑Ticket utilizando Splunk y correlación de logs.
+                                </p>
+                                <p class="text-[15px] text-white/50">
+                                    Splunk • Windows • SIEM • Threat Hunting
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">
+                            2024
+                        </div>
+                        <div class="col-span-3">
+                            <a href="https://github.com/storybookpuma/snort-ids-ips" target="_blank"
+                                class="group block">
+                                <h3 class="text-base font-bold text-white inline-flex items-center gap-2 mb-2">
+                                    Implementación de Snort IDS
+                                    <img src="./assets/images/arrow-link.svg" class="w-2.5 h-2.5 opacity-100 invert"
+                                        alt="arrow">
+                                </h3>
+                                <p class="text-[15px] leading-relaxed text-white/90 mb-2">
+                                    Configuración y tuning de Snort 3 para detección de intrusos.
+                                </p>
+                                <p class="text-[15px] text-white/50">
+                                    Snort 3 • Traffic Analysis • Linux
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECCIÓN CERTIFICACIONES -->
+            <section id="certifications" class="mb-14">
+                <h2 class="text-base font-bold text-white mb-10">Certificaciones</h2>
+
+                <div class="flex flex-col gap-10">
+                    <!-- Cert 1 -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">2026</div>
+                        <div class="col-span-3">
+                            <h3 class="text-base font-bold text-white mb-2">CompTIA Security+</h3>
+                            <p class="text-[15px] text-white/50">
+                                CompTIA
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Cert 2 -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">2025</div>
+                        <div class="col-span-3">
+                            <h3 class="text-base font-bold text-white mb-2">eJPTv2</h3>
+                            <p class="text-[15px] text-white/50">
+                                eLearnSecurity Junior Penetration Tester
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Cert 3 -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">2025</div>
+                        <div class="col-span-3">
+                            <h3 class="text-base font-bold text-white mb-2">SOC Analyst Path</h3>
+                            <p class="text-[15px] text-white/50">
+                                HTB Academy
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN SKILLS -->
+            <section id="skills" class="mb-14">
+                <h2 class="text-base font-bold text-white mt-14 mb-10">Stack Tecnológico</h2>
+
+                <div class="flex flex-col gap-10">
+                    <!-- Skill Group 1 -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">Red Team</div>
+                        <div class="col-span-3">
+                            <h3 class="text-base font-bold text-white mb-2">Seguridad Ofensiva</h3>
+                            <p class="text-[15px] leading-relaxed text-white/90 mb-2">
+                                Burp Suite, Metasploit, Python Scripting, Bash, Active Directory Exploitation.
+                            </p>
+                            <p class="text-[15px] text-white/50">
+                                Tools • Scripts • Frameworks
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Skill Group 2 -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">Defensiva</div>
+                        <div class="col-span-3">
+                            <h3 class="text-base font-bold text-white mb-2">Blue Team</h3>
+                            <p class="text-[15px] leading-relaxed text-white/90 mb-2">
+                                Splunk, SIEMs, ELK Stack, Suricata, Sysmon, Wireshark, Traffic Analysis.
+                            </p>
+                            <p class="text-[15px] text-white/50">
+                                Monitoring • Analysis • Logging • SIEM
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Skill Group 3 -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">Software</div>
+                        <div class="col-span-3">
+                            <h3 class="text-base font-bold text-white mb-2">Desarrollo</h3>
+                            <p class="text-[15px] leading-relaxed text-white/90 mb-2">
+                                Python, Java, React, Tailwind CSS, Node.js, REST APIs & Backend Development.
+                            </p>
+                            <p class="text-[15px] text-white/50">
+                                Language • Frontend • Style • Backend
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Skill Group 4 -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">Sistemas/GRC</div>
+                        <div class="col-span-3">
+                            <h3 class="text-base font-bold text-white mb-2">Gobernanza & Operaciones</h3>
+                            <p class="text-[15px] leading-relaxed text-white/90 mb-2">
+                                Linux, Windows Server, Risk Management, GRC, Infrastructure Hardening.
+                            </p>
+                            <p class="text-[15px] text-white/50">
+                                OS • Compliance • Governance • Risk
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Skill Group 5 -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="col-span-1 text-white/50 text-[15px] leading-relaxed">Cloud/Data</div>
+                        <div class="col-span-3">
+                            <h3 class="text-base font-bold text-white mb-2">Cloud & Análisis de Datos</h3>
+                            <p class="text-[15px] leading-relaxed text-white/90 mb-2">
+                                GCP, AWS, Azure, Snowflake, Power BI, Tableau.
+                            </p>
+                            <p class="text-[15px] text-white/50">
+                                Cloud • Business Intelligence • Data Warehouse
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN ENLACES -->
+            <section id="links" class="mb-4">
+                <h2 class="text-base font-bold text-white mt-14 mb-10">Enlaces</h2>
+                <div class="flex flex-col gap-4">
+
+                    <div class="grid grid-cols-4 gap-4 items-center">
+                        <div class="col-span-1 text-white/50 text-[15px]">Email</div>
+                        <div class="col-span-3">
+                            <a href="mailto:rampefrank32@gmail.com"
+                                class="text-[15px] text-white font-bold hover:underline">
+                                rampefrank32@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-4 items-center">
+                        <div class="col-span-1 text-white/50 text-[15px]">Github</div>
+                        <div class="col-span-3">
+                            <a href="https://github.com/storybookpuma" target="_blank"
+                                class="text-[15px] text-white font-bold hover:underline">
+                                @storybookpuma
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-4 gap-4 items-center">
+                        <div class="col-span-1 text-white/50 text-[15px]">LinkedIn</div>
+                        <div class="col-span-3">
+                            <a href="https://www.linkedin.com/in/francisco-jes%C3%BAs-ram%C3%B3n-p%C3%A9rez-25552a2b7/"
+                                target="_blank" class="text-[15px] text-white font-bold hover:underline">
+                                Francisco Ramón
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+        <!-- End Main Container -->
+
+        <!-- Footer Removed as per new layout flow usually ending with Links -->
+    </section>
+    <!-- End Main Container -->
+
+</body>
+
+</html>
